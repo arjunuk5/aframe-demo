@@ -8,10 +8,19 @@
 
    <body style="margin: 0px; overflow: hidden">
       <a-scene embedded arjs>
+         <a-marker preset="kanji">
+            <a-entity
+               scale=".4 .4 .4"
+               position="0 0 -0.2"
+               gltf-model="resources/models/bug/scene.gltf"
+            ></a-entity>
+         </a-marker>
          <a-marker preset="hiro">
             <a-entity
+               scale="5 5 5"
                position="0 0 0"
-               gltf-model="https://arjunuk5.github.io/aframe-demo/resources/models/scene.gltf"
+               rotation="-20 0 0"
+               gltf-model="resources/models/alarm_clock_01_4k.gltf"
             ></a-entity>
          </a-marker>
          <a-entity camera></a-entity>
