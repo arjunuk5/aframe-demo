@@ -8,14 +8,11 @@
 
    <body style="margin: 0px; overflow: hidden">
       <a-scene embedded arjs>
-         <a-assets>
-            <a-asset-item id="modelBug" src="resources/models/bug/scene.gltf"></a-asset-item>
-            <a-asset-item id="modelClock" src="resources/models/alarm_clock_01_4k.gltf"></a-asset-item>
          <a-marker preset="kanji">
             <a-entity
                scale=".4 .4 .4"
                position="0 0 -0.2"
-               gltf-model="#modelBug"
+               gltf-model="resources/models/bug/scene.gltf"
             ></a-entity>
          </a-marker>
          <a-marker preset="hiro">
@@ -23,7 +20,7 @@
                scale="5 5 5"
                position="0 0 0"
                rotation="-20 0 0"
-               gltf-model="#modelClock"
+               gltf-model="resources/models/alarm_clock_01_4k.gltf"
             ></a-entity>
          </a-marker>
          <a-entity camera></a-entity>
