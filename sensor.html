@@ -8,87 +8,93 @@
    <script src="resources/scripts/aframe-ar.js"></script>
    <script src="resources/scripts/aframe-htmlembed-component.js"></script>
    <script>
-      AFRAME.registerComponent('markerhandler', {
-          init: function () {
-            this.el.sceneEl.addEventListener('markerFound', () => {
+      AFRAME.registerComponent("markerhandler", {
+         init: function () {
+            this.el.sceneEl.addEventListener("markerFound", () => {
                let markerId = this.el?.id;
-let apiURL= "http://182.72.154.142:1881/iotapi/sensor-details?id=";
-apiURL += markerId;
+               //console.log(markerId);
+
+               const marker = document.querySelector("#" + markerId);
+
+               var tempEl = document.createElement("a-entity");
+               tempEl.setAttribute("position", "0 .4 0");
+               tempEl.setAttribute("rotation", "-20 0 0");
+               tempEl.setAttribute(
+                  "animation",
+                  "property: scale; to: 2 2 2; dir: alternate; loop: true"
+               );
+
+               var humEl = document.createElement("a-entity");
+               humEl.setAttribute("position", "0 .2 0");
+               humEl.setAttribute("rotation", "-20 0 0");
+               humEl.setAttribute(
+                  "animation",
+                  "property: scale; to: 2 2 2; dir: alternate; loop: true"
+               );
+
+               var statusEl = document.createElement("a-entity");
+               statusEl.setAttribute("position", "0 .6 0");
+               statusEl.setAttribute("rotation", "-20 0 0");
+               statusEl.setAttribute(
+                  "animation",
+                  "property: scale; to: 2 2 2; dir: alternate; loop: true"
+               );
+
+               let apiURL = "http://182.72.154.142:1881/iotapi/sensor-details?id=";
+               apiURL += markerId;
 
                fetch(apiURL)
-  .then((response) => response.json())
-  .then((data) => {
-  
-  let html=`<h3>${data.name}</h3>`;
-  html +=`<ul><li>Temperature: ${data.temp}</li><li>Humidity: ${data.hum}</li><li>Status: ${data.status}</li></ul>`;
-  let divId = "dv-" + markerId;
-     //document.getElementById(divId).innerHTML=html;
-  }
-  );
+                  .then((response) => response.json())
+                  .then((data) => {
+                     // let html = `<h3>${data.name}</h3>`;
+                     // html += `<ul><li>Temperature: ${data.temp}</li><li>Humidity: ${data.hum}</li><li>Status: ${data.status}</li></ul>`;
+                     // let divId = "dv-" + markerId;
+                     marker.innerHTML = "";
+                     tempEl.setAttribute(
+                        "text",
+                        `color: red; align: center; value: Temperature - ${data.temp}; width: 1.5`
+                     );
+                     marker.appendChild(tempEl);
 
-            })
-          }
-        });
-      </script> 
+                     humEl.setAttribute(
+                        "text",
+                        `color: yellow; align: center; value: Humidity - ${data.hum}; width: 1.5`
+                     );
+                     marker.appendChild(humEl);
+
+                     statusEl.setAttribute(
+                        "text",
+                        `color: blue; align: center; value: Status - ${data.status}; width: 1.5`
+                     );
+                     marker.appendChild(statusEl);
+                  })
+                  .catch((error) => {
+                     marker.innerHTML = "";
+                     tempEl.setAttribute(
+                        "text",
+                        `color: red; align: center; value: Temperature - Not available; width: 1.5`
+                     );
+                     marker.appendChild(tempEl);
+
+                     humEl.setAttribute(
+                        "text",
+                        `color: yellow; align: center; value: Humidity - Not available; width: 1.5`
+                     );
+                     marker.appendChild(humEl);
+
+                     statusEl.setAttribute(
+                        "text",
+                        `color: blue; align: center; value: Status - Not available; width: 1.5`
+                     );
+                     marker.appendChild(statusEl);
+                  });
+            });
+         },
+      });
+   </script>
    <body style="margin: 0px; overflow: hidden">
-
       <a-scene embedded arjs>
-         <a-assets>
-            <img id="imgSachin" src="resources/images/Sachin.jpg">
-            <img id="imgMessi" src="resources/images/Messi.jpg">
-            <img id="imgNadal" src="resources/images/Nadal.jpg">
-            <img id="imgBolt" src="resources/images/Bolt.jpg">
-            <img id="imgEarthSsphere" src="resources/images/Earth-Sphere.jpg" />
-         </a-assets>
-
-         <a-marker markerhandler type="pattern" id="sensor-st" url="resources/markers/pattern-ST.patt">
-            <a-entity rotation="-80 0 0" htmlembed>
-               <div id="dv-sensor-st" style="background-color:aliceblue;padding:25px;width:300px;">
-                  <!-- <h4>Paul Gauguin</h4>
-                  <p>
-                    Eugène Henri Paul Gauguin, was a French Post-Impressionist artist. 
-                    Unappreciated until after his death, Gauguin is now recognized for 
-                    his experimental use of color and Synthetist style that were 
-                    distinct from Impressionism. Toward the end of his life, he 
-                    spent ten years in French Polynesia. The paintings from this 
-                    time depict people or landscapes from that region.</p>
-                </div> -->
-           </a-entity>
-         </a-marker>
-
-         <a-marker markerhandler type="pattern" id="sensor-lm" url="resources/markers/pattern-LM.patt">
-            <a-entity rotation="-80 0 0" htmlembed>
-               <div id="dv-sensor-lm" style="background-color:aliceblue;padding:25px;width:300px;">
-
-                </div> 
-           </a-entity>
-         </a-marker>
-
-         <a-marker markerhandler type="pattern" id="sensor-rn" url="resources/markers/pattern-RN.patt">
-            <a-entity rotation="-80 0 0" htmlembed>
-               <div id="dv-sensor-rn" style="background-color:aliceblue;padding:25px;width:300px;">
-
-                </div>
-           </a-entity>
-         </a-marker>
-
-         <a-marker markerhandler type="pattern" id="sensor-ub" url="resources/markers/pattern-UB.patt">
-            <a-entity rotation="-80 0 0" htmlembed>
-               <div id="dv-sensor-ub" style="background-color:aliceblue;padding:25px;width:300px;">
-
-                </div> 
-           </a-entity>
-         </a-marker>
-
-         <a-marker type="pattern" url="resources/markers/pattern-Earth.patt">
-            <a-sphere
-               scale=".6 .6 .6"
-               position="0 0.5 0"
-               material="src: #imgEarthSsphere;"
-            >
-            <a-animation attribute="rotation" easing="linear" dur="15000" to="0 360 0" repeat="indefinite">
-            </a-sphere>
-         </a-marker>
+         <a-marker markerhandler preset="kanji" id="sensor-st"> </a-marker>
          <a-entity camera></a-entity>
       </a-scene>
    </body>
