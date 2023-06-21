@@ -16,77 +16,80 @@
 
                const marker = document.querySelector("#" + markerId);
 
-               var tempEl = document.createElement("a-entity");
-               tempEl.setAttribute("position", "0 .4 0");
-               tempEl.setAttribute("rotation", "-20 0 0");
-               tempEl.setAttribute(
+               var data1El = document.createElement("a-entity");
+               data1El.setAttribute("position", "0 .4 0");
+               data1El.setAttribute("rotation", "-20 0 0");
+               data1El.setAttribute(
                   "animation",
                   "property: scale; to: 2 2 2; dir: alternate; loop: true"
                );
 
-               var humEl = document.createElement("a-entity");
-               humEl.setAttribute("position", "0 .2 0");
-               humEl.setAttribute("rotation", "-20 0 0");
-               humEl.setAttribute(
+               var data2El = document.createElement("a-entity");
+               data2El.setAttribute("position", "0 .2 0");
+               data2El.setAttribute("rotation", "-20 0 0");
+               data2El.setAttribute(
                   "animation",
                   "property: scale; to: 2 2 2; dir: alternate; loop: true"
                );
 
-               var statusEl = document.createElement("a-entity");
-               statusEl.setAttribute("position", "0 .6 0");
-               statusEl.setAttribute("rotation", "-20 0 0");
-               statusEl.setAttribute(
+               var data3El = document.createElement("a-entity");
+               data3El.setAttribute("position", "0 .6 0");
+               data3El.setAttribute("rotation", "-20 0 0");
+               data3El.setAttribute(
                   "animation",
                   "property: scale; to: 2 2 2; dir: alternate; loop: true"
                );
 
-               let apiURL = "http://182.72.154.142:1881/iotapi/sensor-details?id=";
-               apiURL += markerId;
+               //let apiURL = "http://182.72.154.142:1881/iotapi/sensor-details?id=";
+               //apiURL += markerId;
+               let apiURL = "https://random-data-api.com/api/v2/appliances";
 
                fetch(apiURL)
                   .then((response) => response.json())
                   .then((data) => {
+                     console.log(data);
                      // let html = `<h3>${data.name}</h3>`;
                      // html += `<ul><li>Temperature: ${data.temp}</li><li>Humidity: ${data.hum}</li><li>Status: ${data.status}</li></ul>`;
                      // let divId = "dv-" + markerId;
                      marker.innerHTML = "";
-                     tempEl.setAttribute(
+                     data1El.setAttribute(
                         "text",
-                        `color: red; align: center; value: Temperature - ${data.temp}; width: 1.5`
+                        `color: red; align: center; value: Brand - ${data.brand}; width: 1.5`
                      );
-                     marker.appendChild(tempEl);
+                     marker.appendChild(data1El);
 
-                     humEl.setAttribute(
+                     data2El.setAttribute(
                         "text",
-                        `color: yellow; align: center; value: Humidity - ${data.hum}; width: 1.5`
+                        `color: yellow; align: center; value: Equipment - ${data.equipment}; width: 1.5`
                      );
-                     marker.appendChild(humEl);
+                     marker.appendChild(data2El);
 
-                     statusEl.setAttribute(
+                     data3El.setAttribute(
                         "text",
-                        `color: blue; align: center; value: Status - ${data.status}; width: 1.5`
+                        `color: blue; align: center; value: ID - ${data.id}; width: 1.5`
                      );
-                     marker.appendChild(statusEl);
+                     marker.appendChild(data3El);
                   })
                   .catch((error) => {
+                     console.log(error);
                      marker.innerHTML = "";
-                     tempEl.setAttribute(
+                     data1El.setAttribute(
                         "text",
-                        `color: red; align: center; value: Temperature - Not available; width: 1.5`
+                        `color: red; align: center; value: Brand - Not available; width: 1.5`
                      );
-                     marker.appendChild(tempEl);
+                     marker.appendChild(data1El);
 
-                     humEl.setAttribute(
+                     data2El.setAttribute(
                         "text",
-                        `color: yellow; align: center; value: Humidity - Not available; width: 1.5`
+                        `color: yellow; align: center; value: Equipment - Not available; width: 1.5`
                      );
-                     marker.appendChild(humEl);
+                     marker.appendChild(data2El);
 
-                     statusEl.setAttribute(
+                     data3El.setAttribute(
                         "text",
-                        `color: blue; align: center; value: Status - Not available; width: 1.5`
+                        `color: blue; align: center; value: ID - Not available; width: 1.5`
                      );
-                     marker.appendChild(statusEl);
+                     marker.appendChild(data3El);
                   });
             });
          },
