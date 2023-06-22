@@ -6,7 +6,10 @@
       <a-scene embedded arjs>
          <a-assets>
             <a-asset-item id="statue" src="resources/models/statue/scene.gltf"></a-asset-item>
-            <a-asset-item id="clock" src="resources/models/alarm_clock_01_4k.gltf"></a-asset-item>
+            <a-asset-item
+               id="house"
+               src="resources/models/the_neko_stop-off__-_hand-painted_diorama/scene.gltf"
+            ></a-asset-item>
          </a-assets>
 
          <a-marker preset="kanji">
@@ -19,12 +22,7 @@
             ></a-entity>
          </a-marker>
          <a-marker preset="hiro">
-            <a-entity
-               scale="5 5 5"
-               position="0 0 0"
-               rotation="-20 0 0"
-               gltf-model="#clock"
-            ></a-entity>
+            <a-entity scale=".0028 .0028 .0028" gltf-model="#house"></a-entity>
          </a-marker>
          <a-entity camera></a-entity>
       </a-scene>
